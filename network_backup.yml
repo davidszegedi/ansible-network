@@ -6,7 +6,8 @@
   tasks:
     - name: create time stamp for play
       set_fact:
-        datetime: "{{ lookup('pipe','date +%Y-%m-%d-%H-%M') }}"
+        #datetime: "{{ lookup('pipe','date +%Y-%m-%d-%H-%M') }}"
+        datetime: "{{ lookup('pipe','date +%Y-%m-%d') }}"
 
     - name: create /backup directory on control node
       file:
