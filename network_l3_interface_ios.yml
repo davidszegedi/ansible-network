@@ -1,0 +1,11 @@
+---
+- name: configure l3 interface
+  hosts: cisco
+  gather_facts: no
+
+  tasks:
+
+    - name: configure layer3 interface for ios
+      ios_l3_interface:
+        name: "{{ interface_name }}"
+        ipv4: "{{ interface_ipv4 }}"
