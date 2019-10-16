@@ -11,12 +11,12 @@
 
     - name: create /backup directory on control node
       file:
-        path: /backup
+        path: /ec2-user/backup
         state: directory
 
     - name: create timestamp directory
       file:
-        path: "/root/ansible-network/backup/{{datetime}}"
+        path: "/ec2-user/ansible-network/backup/{{datetime}}"
         state: directory
 
 - name: retrieve router configurations
@@ -34,7 +34,7 @@
         ansible_connection: ssh
       copy:
         src: "{{config_output.backup_path}}"
-        dest: "/root/ansible-network/backup/{{hostvars['ansible'].datetime}}/{{inventory_hostname}}"
+        dest: "/ec2-user/ansible-network/backup/{{hostvars['ansible'].datetime}}/{{inventory_hostname}}"
       delegate_to: ansible
       when: config_output is defined
       become: yes
@@ -42,7 +42,7 @@
     - name: Commit changes
       shell: "git commit -am 'Network backups' && git push origin master"
       args:
-        chdir: "/root/ansible-network"
+        chdir: "/ec2-user/ansible-network"
 
 
 - name: backup router configurations
@@ -51,7 +51,7 @@
   tasks:
     - name: find backups
       find:
-        paths: /root/ansible-network/backup
+        paths: /ec2-user/ansible-network/backup
         file_type: directory
       register: backups
       run_once: true
