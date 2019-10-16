@@ -15,7 +15,7 @@
 
     - name: create timestamp directory
       file:
-        path: "/backup/{{datetime}}"
+        path: "/root/ansible-network/backup/{{datetime}}"
         state: directory
 
 - name: retrieve router configurations
@@ -33,7 +33,7 @@
         ansible_connection: ssh
       copy:
         src: "{{config_output.backup_path}}"
-        dest: "/backup/{{hostvars['ansible'].datetime}}/{{inventory_hostname}}"
+        dest: "/root/ansible-network/backup/{{hostvars['ansible'].datetime}}/{{inventory_hostname}}"
       delegate_to: ansible
       when: config_output is defined
       become: yes
@@ -45,7 +45,7 @@
   tasks:
     - name: find backups
       find:
-        paths: /backup
+        paths: /root/ansible-network/backup
         file_type: directory
       register: backups
       run_once: true
