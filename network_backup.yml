@@ -49,6 +49,8 @@
       shell: "git commit -am 'Network backups' && git push origin master"
       args:
         chdir: "/home/ec2-user/ansible-network"
+      become: true
+      become_user: ec2-user
 
     - name: find backups
       find:
