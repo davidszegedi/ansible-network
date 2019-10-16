@@ -1,7 +1,7 @@
 
-Current configuration : 5380 bytes
+Current configuration : 5443 bytes
 !
-! Last configuration change at 14:50:22 UTC Wed Oct 16 2019 by ec2-user
+! Last configuration change at 17:11:30 UTC Wed Oct 16 2019 by ec2-user
 !
 version 16.9
 service timestamps debug datetime msec
@@ -137,6 +137,9 @@ interface Loopback0
 !
 interface Loopback1
  ip address 10.1.1.101 255.255.255.0
+!
+interface Loopback2
+ ip address 192.168.100.10 255.255.255.0
 !
 interface Tunnel0
  ip address 10.100.100.1 255.255.255.0
