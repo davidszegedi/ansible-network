@@ -46,7 +46,7 @@
   tasks:
 
     - name: Commit changes
-      shell: "git commit -am 'Network backups' && git push origin master"
+      shell: "git add . && git commit -m 'Network backups' && git push origin master"
       args:
         chdir: "/home/ec2-user/ansible-network"
       become: true
