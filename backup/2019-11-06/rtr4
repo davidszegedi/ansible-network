@@ -1,0 +1,33 @@
+! Command: show running-config
+! device: localhost (vEOS, EOS-4.23.0FX-VEOSRouter-cloud)
+!
+! boot system flash:CloudEOS.swi
+!
+agent KernelFib environment KERNELFIB_PROGRAM_ALL_ECMP='true'
+!
+switchport default mode routed
+!
+transceiver qsfp default-mode 4x10G
+!
+spanning-tree mode mstp
+!
+aaa authentication policy on-success log
+aaa authentication policy on-failure log
+!
+no aaa root
+no username admin
+!
+username ec2-user nopassword
+username ec2-user ssh-key ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDHC8Gj6t6GCrgxAltR2yqETedvJHjI8DlQdkmTB++Tp1bW1bT1T3kveMptjpEFA92/J/g/BZK1mgrIgyYgyPUSWOWQzNLQjrEvmtFWcOGnv91GfFqwpkJ+khAfOsRWsliHg2lZ05k2cUY82aFXr3ipOk+MfhUkt62f87JoQJ8HNUY+vwXz9rOG2rA5Hb7ZJ0PW9oPJbOEUUzC9VUg52y4UZoXCsghCpT+6AXkwjDukc878or+5kEug78eI72E678kJYwOs1VMQj67k0rNSSfL6b0RHXHFeJ7RFdEuhtezZuH1LFqDrLn+rRHUPcxoLI0wpdQvR5EqP8AqoiTMgiO0p ac3f-key
+!
+interface Ethernet1
+   no switchport
+   ip address dhcp
+   dhcp client accept default-route
+!
+interface Ethernet100
+   no switchport
+!
+ip routing
+!
+end
