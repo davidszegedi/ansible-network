@@ -63,10 +63,10 @@
 
     - name: create restore job template
       tower_job_template:
-        name: "Network-Restore"
+        name: "DS-Network-Restore"
         job_type: "run"
         inventory: "Workshop Inventory"
-        project: "Workshop Project"
+        project: "DS-ansible-network"
         playbook: "network_restore.yml"
         credential: "Workshop Credential"
         survey_enabled: true
