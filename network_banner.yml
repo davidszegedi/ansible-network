@@ -1,7 +1,10 @@
 ---
 - name: set router banners
-  hosts: routers
+  hosts: "{{ network_inventory_limit }}"
   gather_facts: no
+
+  vars:
+    network_inventory_limit: routers
 
   tasks:
     - name: load banner onto network device
