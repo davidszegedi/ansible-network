@@ -1,0 +1,80 @@
+! Command: show running-config
+! device: rtr2 (vEOS, EOS-4.23.0FX-VEOSRouter-cloud)
+!
+! boot system flash:CloudEOS.swi
+!
+agent KernelFib environment KERNELFIB_PROGRAM_ALL_ECMP='true'
+!
+switchport default mode routed
+!
+transceiver qsfp default-mode 4x10G
+!
+hostname rtr2
+!
+spanning-tree mode mstp
+!
+aaa authentication policy on-success log
+aaa authentication policy on-failure log
+!
+no aaa root
+no username admin
+!
+username ec2-user nopassword
+username ec2-user ssh-key ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC//zyMT53gIn5hS9hjhX0mNX8eqTdHR3Mq5Cs1PyfHAMAsJe9APoqXVcTAtqY7QhZUplzWNCywQtgTnJ1MHl2TfRDa4yb9EaXGV2OKnEMjYGYL6GfTKRHZvMLaKZWSP1ZqU9/z5SAVmgTCj2OfhxEa2nKM8/LW2L2Z9WDaWGKY/jcZACQUrv3mdH9xXwF0navIbe8gxTz63v8Cw+4mv5u1LnvLRmV69b4hUEJhub6vBwcOSaD7k5TH+scwUhnS6Ydi7PkZKgD5lcvfzR1CS3fPUqvu+zLNLwT0vT0tyj2DaUzzifKWx4DO+WWxlPdreLqbU9uqju4h/gtV/NJ/oCIH f5e3-key
+!
+interface Ethernet1
+   no switchport
+   ip address dhcp
+   dhcp client accept default-route
+!
+interface Ethernet100
+   no switchport
+!
+interface Loopback0
+   ip address 192.168.2.102/24
+!
+interface Loopback1
+   ip address 10.2.2.102/24
+!
+interface Tunnel0
+   mtu 1476
+   ip address 10.101.101.2/24
+   tcp mss ceiling ipv4 1360
+   tunnel source interface Ethernet1
+   tunnel destination 18.208.190.64
+!
+interface Tunnel1
+   ip address 10.200.200.2/24
+   tunnel source interface Ethernet1
+   tunnel destination 3.85.193.154
+!
+ip routing
+!
+router bgp 65001
+   router-id 2.2.2.2
+   neighbor 10.200.200.1 remote-as 65000
+   neighbor 10.200.200.1 ebgp-multihop
+   neighbor 10.200.200.1 maximum-routes 12000
+   !
+   address-family ipv4
+      neighbor 10.200.200.1 activate
+      network 10.2.2.0/24
+      network 10.4.4.104/32
+      network 10.101.101.0/24
+      network 10.200.200.0/24
+      network 172.17.0.0/16
+      network 192.168.2.0/24
+!
+router ospf 1
+   redistribute bgp
+   network 10.2.2.0/24 area 0.0.0.0
+   network 10.101.101.0/24 area 0.0.0.0
+   network 172.17.0.0/16 area 0.0.0.0
+   network 192.168.2.0/24 area 0.0.0.0
+   max-lsa 12000
+!
+banner login
+This is the default banner
+EOF
+!
+end
