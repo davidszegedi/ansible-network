@@ -74,7 +74,7 @@ router ospf 1
    max-lsa 12000
 !
 banner login
-This is the default banner
+This is the default arista banner
 EOF
 !
 end

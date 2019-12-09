@@ -31,7 +31,7 @@ interface Ethernet100
 ip routing
 !
 banner login
-This is the default banner
+This is the default arista banner
 EOF
 !
 end
