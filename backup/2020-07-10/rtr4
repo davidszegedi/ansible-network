@@ -1,0 +1,51 @@
+! Command: show running-config
+! device: rtr4 (vEOS, EOS-4.22.1FX-VEOSRouter-cloud)
+!
+! boot system flash:vEOS-Router.swi
+!
+agent KernelFib environment KERNELFIB_PROGRAM_ALL_ECMP='true'
+!
+switchport default mode routed
+!
+transceiver qsfp default-mode 4x10G
+!
+hostname rtr4
+!
+spanning-tree mode mstp
+!
+aaa authentication policy on-success log
+aaa authentication policy on-failure log
+!
+no aaa root
+no username admin
+!
+username ec2-user nopassword
+username ec2-user ssh-key ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCMWulyfgjNNwjZEZ3RN1ThGRMUy5FBa3egZB9nYnENBfbmUx1rrZl5E0SGKTWgyvYH0Em4ap6dnr9GezR+lydPP+rTw4mDecWkNV/lKhVE1d6RPYp/d2gjLdXNSz36/ym4Ci1fj0TVMLtj6e0DChDbzQ9vKOXlhwUsq4KXLEKZApjvY9pXZjBAhFOkAYsP1peV5Pr6uSnRmfaeLVidH2EuPsT8sC2ADWyH+k3dt14fqV+Yq49tkfRWP37K3r0kwg58aGZq9h8YkHI7wipQaMfmirH1Mx9Ai8J76k49NDWBWZHOq3pM3L4H20i9dVjTlx8I5s6XyPl+6c27wsoHFYb5 1da7-key
+!
+interface Ethernet1
+   no switchport
+   ip address dhcp
+   dhcp client accept default-route
+!
+interface Loopback0
+   ip address 192.168.4.4/32
+!
+interface Tunnel0
+   mtu 1394
+   ip address 10.101.101.4/24
+   ip ospf network point-to-point
+   ip ospf area 0.0.0.0
+   tunnel mode gre
+   tunnel source interface Ethernet1
+   tunnel destination 172.18.6.39
+   tunnel path-mtu-discovery
+   tunnel ttl 10
+!
+ip routing
+!
+router ospf 1
+   router-id 192.168.4.4
+   redistribute connected
+   max-lsa 12000
+!
+end
