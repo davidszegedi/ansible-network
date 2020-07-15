@@ -1,0 +1,21 @@
+set version 18.4R1.8
+set groups aws-default system login user ec2-user full-name juniper-aws-ec2-user
+set groups aws-default system login user ec2-user uid 100
+set groups aws-default system login user ec2-user class super-user
+set groups aws-default system login user ec2-user authentication ssh-rsa "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCMWulyfgjNNwjZEZ3RN1ThGRMUy5FBa3egZB9nYnENBfbmUx1rrZl5E0SGKTWgyvYH0Em4ap6dnr9GezR+lydPP+rTw4mDecWkNV/lKhVE1d6RPYp/d2gjLdXNSz36/ym4Ci1fj0TVMLtj6e0DChDbzQ9vKOXlhwUsq4KXLEKZApjvY9pXZjBAhFOkAYsP1peV5Pr6uSnRmfaeLVidH2EuPsT8sC2ADWyH+k3dt14fqV+Yq49tkfRWP37K3r0kwg58aGZq9h8YkHI7wipQaMfmirH1Mx9Ai8J76k49NDWBWZHOq3pM3L4H20i9dVjTlx8I5s6XyPl+6c27wsoHFYb5 1da7-key"
+set groups aws-default system root-authentication encrypted-password *disabled*
+set groups aws-default system services ssh no-passwords
+set groups aws-default system services netconf ssh
+set groups aws-default system services web-management https system-generated-certificate
+set groups aws-default system license autoupdate url https://ae1.juniper.net/junos/key_retrieval
+set groups aws-default interfaces fxp0 unit 0 family inet dhcp
+set apply-groups aws-default
+set system root-authentication encrypted-password "$6$X9FX47R.$/NW59/BKnIFh.kcKIky1zlmx.NMC2dT0nWi72Quo8M06ftiTzfCnrgE.nJXa48KYA3SICVE0GVeXrPuKYdC2b/"
+set system services netconf ssh port 830
+set system host-name rtr3
+set interfaces gr-0/0/0 unit 0 tunnel source 172.16.81.206
+set interfaces gr-0/0/0 unit 0 tunnel destination 172.16.78.165
+set interfaces gr-0/0/0 unit 0 family inet address 10.100.100.2/24
+set interfaces lo0 unit 0 family inet address 192.168.3.3/32
+set protocols ospf area 0.0.0.0 interface gr-0/0/0.0
+set protocols ospf area 0.0.0.0 interface lo0.0 passive
