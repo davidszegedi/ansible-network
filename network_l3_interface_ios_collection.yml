@@ -2,15 +2,10 @@
 - name: configure l3 interface
   hosts: cisco
   gather_facts: no
-  
-  collections:
-    - name: cisco.ios
-      version: 1.2.1
-      source: https://github.com/ansible-collections/cisco.ios.git
 
   tasks:
     - name: configure layer3 interfaces for ios
-      cisco.ios.ios_l3_interfaces:
+      ios_l3_interfaces:
         config:
         - name: "{{ interface_name }}"
           ipv4:
