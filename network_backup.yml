@@ -2,7 +2,6 @@
 - name: setup control node timestamp
   hosts: ansible-1
   gather_facts: no
-  become: yes
   tasks:
     - name: create time stamp for play
       set_fact:
@@ -37,7 +36,8 @@
         dest: "/home/ec2-user/ansible-network/backup/{{hostvars['ansible-1'].datetime}}/{{inventory_hostname}}"
       delegate_to: ansible-1
       when: config_output is defined
-      become: yes
+      become: true
+      become_user: ec2-user
 
 
 - name: backup router configurations
@@ -59,7 +59,8 @@
         file_type: directory
       register: backups
       run_once: true
-      become: yes
+      become: true
+      become_user: ec2-user
 
     - name: create restore job template
       tower_job_template:
