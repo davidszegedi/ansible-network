@@ -12,11 +12,15 @@
       file:
         path: /home/ec2-user/backup
         state: directory
+      become: true
+      become_user: ec2-user
 
     - name: create timestamp directory
       file:
         path: "/home/ec2-user/ansible-network/backup/{{datetime}}"
         state: directory
+      become: true
+      become_user: ec2-user
 
 - name: retrieve router configurations
   hosts: all
