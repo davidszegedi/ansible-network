@@ -2,6 +2,8 @@
 - name: configure l3 interface
   hosts: cisco
   gather_facts: no
+  collections:
+    - cisco.ios
 
   tasks:
     - name: configure layer3 interfaces for ios
