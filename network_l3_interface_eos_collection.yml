@@ -6,8 +6,8 @@
   tasks:
     - name: Merge provided configuration with device configuration.
       arista.eos.eos_l3_interfaces:
-      config:
-      - name: "{{ interface_name }}"
-        ipv4:
-        - address: "{{ interface_ipv4 }}"
-      state: merged
+        config:
+        - name: "{{ interface_name }}"
+          ipv4:
+          - address: "{{ interface_ipv4 }}"
+        state: replaced
