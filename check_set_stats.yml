@@ -1,0 +1,10 @@
+---
+- name: check of set_stats persitent variable
+  hosts: all
+  #gather_facts: yes
+
+  tasks:
+
+    - name: DEBUG - output persistent_string
+      debug:
+        masg: " Checking content of persistent_string from {{ inventory_hostname }}: {{ persistent_string }}"
