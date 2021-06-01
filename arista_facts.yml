@@ -24,4 +24,4 @@
 
     - name: DEBUG - output router_serialnum
       debug:
-        var: ansible_stats.data.router_serialnum
+        msg: " Content of ansible_stats.data.router_serialnum is {{ ansible_stats.data.router_serialnum }}"
