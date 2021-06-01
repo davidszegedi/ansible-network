@@ -19,6 +19,9 @@
       set_stats:
         data:
           router_serialnum: "{{ ansible_net_serialnum }}"
+        per_host: no
+        aggregate: no
 
     - name: DEBUG - output router_serialnum
+      debug:
         var: router_serialnum
