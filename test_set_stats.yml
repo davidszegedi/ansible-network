@@ -1,0 +1,17 @@
+---
+- name: Test of set_stats module
+  hosts: all
+  #gather_facts: yes
+
+  tasks:
+
+    - name: Persist information for subsequent playbooks executions
+      set_stats:
+        data:
+          persistent_string: "this is a persistent test string written from {{ inventory_hostname }}"
+        per_host: no
+        aggregate: no
+
+    - name: DEBUG - output persistent_string
+      debug:
+        var: persistent_string
