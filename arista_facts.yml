@@ -24,4 +24,4 @@
 
     - name: DEBUG - output router_serialnum
       debug:
-        var: router_serialnum
+        var: ansible_stats_router_serialnum
