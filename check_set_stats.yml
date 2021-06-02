@@ -8,3 +8,10 @@
     - name: DEBUG - output persistent_string
       debug:
         msg: " Checking content of persistent_string from {{ inventory_hostname }}: {{ persistent_string }}"
+
+    - name: Persist information for subsequent playbooks executions
+      set_stats:
+        data:
+          persistent_string: "{{ persistent_string }} and modified by {{ inventory_hostname }}"
+        per_host: no
+        aggregate: no

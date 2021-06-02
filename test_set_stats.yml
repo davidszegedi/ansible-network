@@ -12,6 +12,4 @@
         per_host: no
         aggregate: no
 
-    #- name: DEBUG - output persistent_string
-    #  debug:
-    #    var: persistent_string
+    
