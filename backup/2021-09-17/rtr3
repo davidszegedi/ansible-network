@@ -1,0 +1,22 @@
+set version 20.4R2-S1.6
+set groups aws-default system root-authentication encrypted-password *disabled*
+set groups aws-default system scripts translation max-datasize 512m
+set groups aws-default system login user ec2-user full-name juniper-aws-ec2-user
+set groups aws-default system login user ec2-user uid 100
+set groups aws-default system login user ec2-user class super-user
+set groups aws-default system login user ec2-user authentication ssh-rsa "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCe1zpkATVUjXn79UXXgjkVG3urDqU7eiAh1jfg5q536DdQ8JfOcdxIaGm8OiNAetdzUreddRaxP02I48hSyfeWD9iwKjG25rJNjWU2s6cXMJChp9mR0Q2C0nLdTqYV1Fxdx+yxlBHJtgALuJxDnO5UrmHobWkCdf6FvGj3Fca9K7MZKuIxegWWkNvCBwQiQ0IGC4orZ4oPoypG2Gn7Ul2rBZ7Zj2iqUqi/K9BqVIIGyVX4t0hKCmBDmyuPRp+c6INM+WqwlKZh9MAPHLH5miXYvn/0G0vMLULzvxJ9bGiYe/5EUJzykUr+W/GFlMfgbES2Gs/uXIwFKmYsao+4xKlv 287d-key"
+set groups aws-default system services ssh no-passwords
+set groups aws-default system services netconf ssh
+set groups aws-default system services web-management https system-generated-certificate
+set groups aws-default system license autoupdate url https://ae1.juniper.net/junos/key_retrieval
+set groups aws-default interfaces fxp0 unit 0 family inet dhcp
+set apply-groups aws-default
+set system host-name rtr3
+set system root-authentication encrypted-password "$6$XHJ/B4vu$GmWbLT2n6u1IB0RuOciG5jkz8wlVRtD0z5sgW/NC.WCpGsbbs.M3Ffr2PjpXRvnmpDRaaFW0zdoMhqfa6HAr3/"
+set system services netconf ssh port 830
+set interfaces gr-0/0/0 unit 0 tunnel source 172.16.138.191
+set interfaces gr-0/0/0 unit 0 tunnel destination 172.16.107.114
+set interfaces gr-0/0/0 unit 0 family inet address 10.100.100.2/24
+set interfaces lo0 unit 0 family inet address 192.168.3.3/32
+set protocols ospf area 0.0.0.0 interface gr-0/0/0.0
+set protocols ospf area 0.0.0.0 interface lo0.0 passive
